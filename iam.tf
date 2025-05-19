@@ -18,13 +18,13 @@ resource "aws_iam_role" "terraform_codepipeline_role" {
 
 data "aws_iam_policy_document" "terraform-cicd-codepipeline-policies" {
   statement {
-    sid       = "1"
+    sid       = ""
     actions   = ["codestar-connection:UseConnection"]
     resources = ["*"]
     effect    = "Allow"
   }
   statement {
-    sid       = "2"
+    sid       = ""
     actions   = ["cloudwatch:*", "s3:*", "codebuild:*"]
     resources = ["*"]
     effect    = "Allow"
