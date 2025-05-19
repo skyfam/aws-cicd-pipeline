@@ -31,6 +31,30 @@ data "aws_iam_policy_document" "terraform-cicd-codepipeline-policies" {
   }
 }
 
+
+resource "aws_iam_policy" "allow_codestar_connection" {
+  name        = "AllowUseCodeStarConnection"
+  description = "Allow CodePipeline to use CodeStar connection"
+  policy      = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "codestar-connections:UseConnection"
+        ],
+        Resource = var.codestar_connector_credentials
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "attach_codestar_policy" {
+  role       = aws_iam_role.terraform_codepipeline_role.name
+  policy_arn = aws_iam_policy.allow_codestar_connection.arn
+}
+
+
 resource "aws_iam_policy" "terraform_codepipeline_policy" {
   name        = "terraform-codepipeline-policy"
   path        = "/"
