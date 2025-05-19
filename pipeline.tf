@@ -71,7 +71,7 @@ resource "aws_codepipeline" "terraform_cicd_codepipeline" {
         FullRepositoryId     = "skyfam/aws-cicd-pipeline"
         BranchName           = "main"
         ConnectionArn        = var.codestar_connector_credentials
-        OutputArtifactFormat = "CODE_ZIP"
+        # OutputArtifactFormat = "CODE_ZIP"
       }
     }
   }
